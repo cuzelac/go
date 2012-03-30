@@ -25,18 +25,20 @@ class LinksController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { @link.update_attributes(params[:link]) 
-                  }
-      format.json { index }
+      format.html {
+        @link.update_attributes!(params[:link])
+      }
+      format.json {
+        @link.save!
+        render :json => @link
+      }
     end
-    @link.save!
   end
 
   def show
     @link
     if params[:shortcut]
       @link = Link.find_or_initialize_by_shortcut(params[:shortcut])
-#      @link = Link.find_by_shortcut(params[:shortcut])
     else
       @link = Link.find(params[:id])
     end
@@ -47,7 +49,7 @@ class LinksController < ApplicationController
         if @link.new_record?
           render "create"
         else
-          @link.update_attribute(:access_count, @link.access_count + 1)
+          @link.update_attribute!(:access_count, @link.access_count + 1)
           redirect_to @link.target + "/#{params[:path]}"
         end
       }
