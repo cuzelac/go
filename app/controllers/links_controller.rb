@@ -49,7 +49,7 @@ class LinksController < ApplicationController
         if @link.new_record?
           render "create"
         else
-          @link.update_attribute!(:access_count, @link.access_count + 1)
+          @link.update_attributes!(:access_count => @link.access_count + 1)
           redirect_to @link.target + "/#{params[:path]}"
         end
       }
