@@ -9,14 +9,23 @@ class LinksController < ApplicationController
     end
   end
 
+  def new
+    @link = Link.new
+    render "create"
+  end
+
   def create
-    respond_to do |format|
-      format.html
-      format.json { render :json => @link }
+    if @link.nil?
+      @link = Link.new(:shortcut => params[:shortcut],
+                       :target => params[:target]
+                      )
     end
-    @link = Link.new(:shortcut => params[:shortcut],
-                     :target => params[:target]
-                    )
+
+    respond_to do |format|
+      format.html { @link.update_attributes(params[:link]) 
+                  }
+      format.json { index }
+    end
     @link.save!
   end
 
@@ -24,6 +33,7 @@ class LinksController < ApplicationController
     @link
     if params[:shortcut]
       @link = Link.find_or_initialize_by_shortcut(params[:shortcut])
+#      @link = Link.find_by_shortcut(params[:shortcut])
     else
       @link = Link.find(params[:id])
     end
