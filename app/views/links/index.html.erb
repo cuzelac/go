@@ -6,14 +6,20 @@
   <%= f.submit "Create" %>
 <% end %>
 
-<h1>Links#index</h1>
+<h1>All Links</h1>
 
-<ul>
+<table>
+  <tr>
+    <th># Accessed</th>
+    <th>Shortcut</th>
+    <th>Target</th>
+  </tr>
+
 <% @links.each do |l| %>
-  <li>
-  <%= l.shortcut %>
-  :
-  <%= l.target %>
-  [<%= l.access_count %>]
+  <tr>
+    <td><%= l.access_count %></td>
+    <td><%= l.shortcut %></td>
+    <td><%= link_to l.target, url_for(l.target) %></td>
+  </tr>
 <% end %>
-</ul>
+</table>
