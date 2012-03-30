@@ -1,9 +1,21 @@
 class LinksController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+
   def index
     @links = Link.all
     respond_to do |format|
       format.html
       format.json { render :json => @links }
+    end
+  end
+
+  def create
+    @link = Link.new(:shortcut => params[:shortcut],
+                     :target => params[:target]
+                    )
+    @link.save!
+    respond_to do |format|
+      format.json { render :json => @link }
     end
   end
 
