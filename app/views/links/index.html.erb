@@ -1,0 +1,10 @@
+<h1>Links#index</h1>
+<ul>
+<% @links.each do |l| %>
+  <li>
+  <%= l.shortcut %>
+  :
+  <%= l.target %>
+  [<%= l.access_count %>]
+<% end %>
+</ul>
