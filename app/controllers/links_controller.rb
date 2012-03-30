@@ -4,7 +4,10 @@ class LinksController < ApplicationController
   def index
     @links = Link.all
     respond_to do |format|
-      format.html
+      format.html {
+        @link = Link.new
+        render
+      }
       format.json { render :json => @links }
     end
   end
