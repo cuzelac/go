@@ -1,4 +1,13 @@
+<h1>Create a new shortcut</h1>
+
+<%= form_for @link, :url => links_path, :as => :post do |f| %>
+  <%= f.text_field :shortcut %>
+  <%= f.text_field :target %>
+  <%= f.submit "Create" %>
+<% end %>
+
 <h1>Links#index</h1>
+
 <ul>
 <% @links.each do |l| %>
   <li>
