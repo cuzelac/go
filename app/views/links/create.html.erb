@@ -1,6 +1,6 @@
 <h1> Create a new link </h1>
 
-<%= form_for(@link) do |f| %>
+<%= form_for @link do |f| %>
   <%= f.text_field :shortcut %>
   <%= f.text_field :target %>
   <%= f.submit "Create" %>
