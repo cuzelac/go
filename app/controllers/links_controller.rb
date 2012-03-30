@@ -10,19 +10,20 @@ class LinksController < ApplicationController
   end
 
   def create
+    respond_to do |format|
+      format.html
+      format.json { render :json => @link }
+    end
     @link = Link.new(:shortcut => params[:shortcut],
                      :target => params[:target]
                     )
     @link.save!
-    respond_to do |format|
-      format.json { render :json => @link }
-    end
   end
 
   def show
     @link
     if params[:shortcut]
-      @link = Link.find_by_shortcut(params[:shortcut])
+      @link = Link.find_or_initialize_by_shortcut(params[:shortcut])
     else
       @link = Link.find(params[:id])
     end
@@ -30,8 +31,12 @@ class LinksController < ApplicationController
     respond_to do |format|
       format.json { render :json => @link }
       format.html {
-        @link.update_attribute(:access_count, @link.access_count + 1)
-        redirect_to @link.target + "/#{params[:path]}"
+        if @link.new_record?
+          render "create"
+        else
+          @link.update_attribute(:access_count, @link.access_count + 1)
+          redirect_to @link.target + "/#{params[:path]}"
+        end
       }
     end
   end
