@@ -6,10 +6,19 @@ gem 'rails', '3.2.2'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'awesome_print'
 
 # use Thin as the app server
 gem 'thin'
+
+group :development do
+  gem 'rspec-rails', '2.6.1'
+  gem 'awesome_print'
+end
+
+group :test do
+  gem 'rspec-rails', '2.6.1'
+  gem 'awesome_print'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
